@@ -1,6 +1,8 @@
 ---
 title: "R for Data Science Project"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 Adding Packages - tidyverse
@@ -172,6 +174,68 @@ ames_train <- ames_train %>% mutate(
 
 )
 ```
+```{r}
+count(ames_train,Alley)
+
+```
+
+```{r}
+ames_train%>%count(Sale.Condition
+                   )
+```
 
 
+```{r}
+(ames_train <- ames_train %>% dplyr::filter(Sale.Condition=="Normal"))
+```
+```{r}
+ames_train
+```
+```{r}
+nrow(ames_train)
+```
+
+```{r}
+ames_train %>% ggplot()+geom_point(aes(x=Year.Built,y=price))
+```
+```{r}
+ames_train %>% ggplot()+geom_bar(aes(x=Overall.Qual,stat=price))
+```
+```{r}
+(model <- lm(price~Year.Built+Overall.Qual+area+Bedroom.AbvGr+Lot.Area+Overall.Cond,data = ames_train))
+```
+
+```{r}
+summary(model)
+```
+```{r}
+stepAIC(model,k=2,direction = "backward",trace = FALSE)
+```
+
+```{r}
+sqrt(mean(model$residuals^2))
+```
+```{r}
+ames_train %>% dplyr::select(Year.Built,Overall.Qual , area , Bedroom.AbvGr ,
+    Lot.Area ,Overall.Cond,price,)
+```
+
+```{r}
+(df <- tibble(Year.Built=2010,Overall.Qual=as.character(5),area=900,Bedroom.AbvGr=4,Lot.Area=7654,Overall.Cond=as.character(5)))
+```
+
+```{r}
+predict(model,df)
+```
+
+```{r}
+103203.8 -126000
+```
+
+```{r}
+model$residuals[1]
+```
+```{r}
+
+```
 
